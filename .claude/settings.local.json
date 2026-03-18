@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find D:projectporfolioshubham_jais -maxdepth 3 -not -path */.git/* -not -path */.next/* -not -path */node_modules/*)",
+      "Bash(npm install:*)",
+      "Bash(npx next:*)",
+      "Bash(npx tailwindcss:*)"
+    ]
+  }
+}
