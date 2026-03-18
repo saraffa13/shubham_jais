@@ -4,7 +4,11 @@
       "Bash(find D:projectporfolioshubham_jais -maxdepth 3 -not -path */.git/* -not -path */.next/* -not -path */node_modules/*)",
       "Bash(npm install:*)",
       "Bash(npx next:*)",
-      "Bash(npx tailwindcss:*)"
+      "Bash(npx tailwindcss:*)",
+      "Bash(curl -s \"http://localhost:3000/_next/static/chunks/%5Broot-of-the-server%5D__82990f4c._.css\")",
+      "Bash(\"D:\\\\project\\\\porfolio\\\\shubham_jais\\\\tmp_dev.css\")",
+      "Bash(node -e \":*)",
+      "Bash(curl -s http://localhost:3000)"
     ]
   }
 }
