@@ -88,14 +88,6 @@ export function Contact() {
           </div>
         </motion.div>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          className="text-center text-sm text-neutral-400 dark:text-neutral-600 mt-20"
-        >
-          Built with Next.js, Tailwind CSS &amp; a lot of chai.
-        </motion.p>
       </div>
     </section>
   )
