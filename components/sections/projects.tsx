@@ -2,8 +2,9 @@
 
 import { motion, useInView } from "framer-motion"
 import { useRef } from "react"
-import { ExternalLink, ArrowUpRight } from "lucide-react"
+import { ExternalLink } from "lucide-react"
 import { GlowingEffect } from "@/components/ui/glowing-effect"
+import { FloatingCard } from "@/components/three/floating-card"
 import Image from "next/image"
 
 const projects = [
@@ -42,7 +43,7 @@ export function Projects() {
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
   return (
-    <section id="projects" className="py-24 bg-white dark:bg-neutral-950">
+    <section id="projects" className="py-24 bg-white/90 dark:bg-neutral-950/90 backdrop-blur-sm relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
@@ -69,58 +70,60 @@ export function Projects() {
               transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
               className="group relative"
             >
-              <div className="relative h-full rounded-[1.25rem] border border-neutral-200 dark:border-neutral-800 p-2 hover:border-neutral-300 dark:hover:border-neutral-700 transition-colors">
-                <GlowingEffect
-                  spread={40}
-                  glow={true}
-                  disabled={false}
-                  proximity={64}
-                  inactiveZone={0.01}
-                  borderWidth={2}
-                />
-                <div className="relative h-full flex flex-col overflow-hidden rounded-xl bg-white dark:bg-neutral-900 border border-neutral-100 dark:border-neutral-800">
-                  {/* Image */}
-                  <div className="relative h-48 overflow-hidden">
-                    <Image
-                      src={project.image}
-                      alt={project.title}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-                  </div>
-
-                  {/* Content */}
-                  <div className="flex flex-col flex-1 p-6">
-                    <div className="flex items-start justify-between mb-3">
-                      <h3 className="text-xl font-semibold text-neutral-900 dark:text-white group-hover:text-blue-500 transition-colors">
-                        {project.title}
-                      </h3>
-                      <a
-                        href={project.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="p-1.5 rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-500 hover:text-neutral-900 dark:hover:text-white transition-colors"
-                      >
-                        <ExternalLink className="h-4 w-4" />
-                      </a>
+              <FloatingCard intensity={6}>
+                <div className="relative h-full rounded-[1.25rem] border border-neutral-200 dark:border-neutral-800 p-2 hover:border-neutral-300 dark:hover:border-neutral-700 transition-colors">
+                  <GlowingEffect
+                    spread={40}
+                    glow={true}
+                    disabled={false}
+                    proximity={64}
+                    inactiveZone={0.01}
+                    borderWidth={2}
+                  />
+                  <div className="relative h-full flex flex-col overflow-hidden rounded-xl bg-white/80 dark:bg-neutral-900/80 border border-neutral-100 dark:border-neutral-800 backdrop-blur-sm">
+                    {/* Image */}
+                    <div className="relative h-48 overflow-hidden">
+                      <Image
+                        src={project.image}
+                        alt={project.title}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
                     </div>
-                    <p className="text-sm text-neutral-600 dark:text-neutral-400 flex-1 mb-4">
-                      {project.description}
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {project.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="px-3 py-1 text-xs font-medium rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400"
+
+                    {/* Content */}
+                    <div className="flex flex-col flex-1 p-6">
+                      <div className="flex items-start justify-between mb-3">
+                        <h3 className="text-xl font-semibold text-neutral-900 dark:text-white group-hover:text-blue-500 transition-colors">
+                          {project.title}
+                        </h3>
+                        <a
+                          href={project.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-1.5 rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-500 hover:text-neutral-900 dark:hover:text-white transition-colors"
                         >
-                          {tag}
-                        </span>
-                      ))}
+                          <ExternalLink className="h-4 w-4" />
+                        </a>
+                      </div>
+                      <p className="text-sm text-neutral-600 dark:text-neutral-400 flex-1 mb-4">
+                        {project.description}
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        {project.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="px-3 py-1 text-xs font-medium rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              </FloatingCard>
             </motion.div>
           ))}
         </div>

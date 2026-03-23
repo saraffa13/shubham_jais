@@ -3,6 +3,8 @@
 import { motion, useInView } from "framer-motion"
 import { useRef } from "react"
 import { Mail, Instagram, Facebook, ArrowUpRight, Download } from "lucide-react"
+import { SceneContainer } from "@/components/three/scene-container"
+import { ContactAurora } from "@/components/three/contact-aurora"
 
 const socials = [
   { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/sketchjais?igsh=bnJpNTVyOHk4emI1", username: "@sketchjais" },
@@ -15,8 +17,15 @@ export function Contact() {
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
   return (
-    <section id="contact" className="py-24 bg-neutral-50 dark:bg-neutral-900/50">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="contact" className="py-24 bg-neutral-50/90 dark:bg-neutral-900/70 backdrop-blur-sm relative overflow-hidden">
+      {/* Aurora shader background */}
+      <div className="absolute inset-0 z-0 opacity-20 dark:opacity-40">
+        <SceneContainer frameloop="always" camera={{ position: [0, 0, 1], fov: 75 }}>
+          <ContactAurora />
+        </SceneContainer>
+      </div>
+
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 40 }}
@@ -74,7 +83,7 @@ export function Contact() {
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.4, delay: 0.3 + i * 0.08 }}
                 whileHover={{ y: -2 }}
-                className="group flex items-center gap-3 p-4 rounded-xl bg-white dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-800 hover:border-blue-300 dark:hover:border-blue-800 transition-colors"
+                className="group flex items-center gap-3 p-4 rounded-xl bg-white/80 dark:bg-neutral-800/60 border border-neutral-200 dark:border-neutral-800 hover:border-blue-300 dark:hover:border-blue-800 transition-colors backdrop-blur-sm"
               >
                 <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center group-hover:bg-blue-50 dark:group-hover:bg-blue-950/50 transition-colors">
                   <social.icon className="h-5 w-5 text-neutral-600 dark:text-neutral-400 group-hover:text-blue-500 transition-colors" />

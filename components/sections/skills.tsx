@@ -12,6 +12,8 @@ import {
 } from "lucide-react"
 import { GlowingEffect } from "@/components/ui/glowing-effect"
 import { cn } from "@/lib/utils"
+import { SceneContainer } from "@/components/three/scene-container"
+import { SkillsSphere } from "@/components/three/skills-sphere"
 
 const skillCategories = [
   {
@@ -52,12 +54,16 @@ const skillCategories = [
   },
 ]
 
+const allSkills = skillCategories.flatMap((cat) =>
+  cat.skills.map((s) => ({ name: s, category: cat.title }))
+)
+
 export function Skills() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
   return (
-    <section id="skills" className="py-24 bg-neutral-50 dark:bg-neutral-900/50">
+    <section id="skills" className="py-24 bg-neutral-50/90 dark:bg-neutral-900/70 backdrop-blur-sm relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
@@ -74,6 +80,20 @@ export function Skills() {
           </p>
         </motion.div>
 
+        {/* 3D Skills Sphere - desktop only */}
+        <div className="hidden lg:block h-[500px] mb-12 rounded-2xl overflow-hidden border border-neutral-200/50 dark:border-neutral-800/50 bg-neutral-950/5 dark:bg-neutral-950/50">
+          <SceneContainer
+            frameloop="always"
+            camera={{ position: [0, 0, 7], fov: 50 }}
+            style={{ cursor: "grab" }}
+          >
+            <ambientLight intensity={0.8} />
+            <pointLight position={[5, 5, 5]} intensity={0.5} />
+            <SkillsSphere skills={allSkills} />
+          </SceneContainer>
+        </div>
+
+        {/* Grid - always visible on mobile, visible below sphere on desktop */}
         <ul className="grid grid-cols-1 grid-rows-none gap-4 md:grid-cols-12 md:grid-rows-3 lg:gap-4 xl:grid-rows-2">
           {skillCategories.map((category, i) => (
             <motion.li
@@ -92,7 +112,7 @@ export function Skills() {
                   inactiveZone={0.01}
                   borderWidth={3}
                 />
-                <div className="relative flex h-full flex-col justify-between gap-4 overflow-hidden rounded-xl border-[0.75px] border-neutral-100 dark:border-neutral-800 bg-white dark:bg-neutral-950 p-6 shadow-sm dark:shadow-[0px_0px_27px_0px_rgba(45,45,45,0.3)]">
+                <div className="relative flex h-full flex-col justify-between gap-4 overflow-hidden rounded-xl border-[0.75px] border-neutral-100 dark:border-neutral-800 bg-white/80 dark:bg-neutral-950/80 p-6 shadow-sm dark:shadow-[0px_0px_27px_0px_rgba(45,45,45,0.3)] backdrop-blur-sm">
                   <div className="flex flex-col gap-3">
                     <div className="w-fit rounded-lg border-[0.75px] border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900 p-2">
                       <category.icon className="h-5 w-5 text-neutral-700 dark:text-neutral-300" />

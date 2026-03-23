@@ -20,6 +20,7 @@
   --color-destructive: var(--destructive);
   --font-sans: var(--font-inter);
   --font-serif: var(--font-playfair);
+  --animate-spin-slow: spin-slow 8s linear infinite;
 }
 
 :root {
@@ -87,20 +88,14 @@ html {
   animation: spotlight 2s ease .75s 1 forwards;
 }
 
-/* Loader for Spline */
-.loader {
-  width: 28px;
-  height: 28px;
-  border: 3px solid #525252;
-  border-bottom-color: transparent;
-  border-radius: 50%;
-  display: inline-block;
-  animation: rotation 1s linear infinite;
+/* Slow spin for profile image glow ring */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
-@keyframes rotation {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+.animate-spin-slow {
+  animation: spin-slow 8s linear infinite;
 }
 
 /* Custom scrollbar */
@@ -125,4 +120,16 @@ html {
 ::selection {
   background: #3b82f6;
   color: white;
+}
+
+/* 3D canvas containers */
+.three-canvas-container {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.three-canvas-container canvas {
+  pointer-events: auto;
 }

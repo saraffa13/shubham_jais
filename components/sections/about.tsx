@@ -4,13 +4,14 @@ import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
 import { useRef } from "react"
 import { Heart, BookOpen, Users } from "lucide-react"
+import { FloatingCard } from "@/components/three/floating-card"
 
 export function About() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
   return (
-    <section id="about" className="py-24 bg-neutral-50 dark:bg-neutral-900/50">
+    <section id="about" className="py-24 bg-neutral-50/90 dark:bg-neutral-900/70 backdrop-blur-sm relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
@@ -73,21 +74,22 @@ export function About() {
                 description: "Healthcare shouldn't stop at the clinic door. I actively participate in health camps, awareness drives, and community outreach.",
               },
             ].map((item, i) => (
-              <motion.div
-                key={item.title}
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.5 + i * 0.1 }}
-                className="flex gap-4 p-4 rounded-xl bg-white dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-800 hover:border-blue-300 dark:hover:border-blue-800 transition-colors"
-              >
-                <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-blue-50 dark:bg-blue-950/50 flex items-center justify-center">
-                  <item.icon className="h-5 w-5 text-blue-500" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-neutral-900 dark:text-white">{item.title}</h3>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">{item.description}</p>
-                </div>
-              </motion.div>
+              <FloatingCard key={item.title} intensity={8}>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.5, delay: 0.5 + i * 0.1 }}
+                  className="flex gap-4 p-4 rounded-xl bg-white/80 dark:bg-neutral-800/60 border border-neutral-200 dark:border-neutral-800 hover:border-blue-300 dark:hover:border-blue-800 transition-colors backdrop-blur-sm"
+                >
+                  <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-blue-50 dark:bg-blue-950/50 flex items-center justify-center">
+                    <item.icon className="h-5 w-5 text-blue-500" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-neutral-900 dark:text-white">{item.title}</h3>
+                    <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">{item.description}</p>
+                  </div>
+                </motion.div>
+              </FloatingCard>
             ))}
           </motion.div>
         </div>

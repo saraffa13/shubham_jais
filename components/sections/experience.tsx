@@ -3,6 +3,8 @@
 import { motion, useInView } from "framer-motion"
 import { useRef } from "react"
 import { Timeline } from "@/components/ui/timeline"
+import { SceneContainer } from "@/components/three/scene-container"
+import { ExperienceParticles } from "@/components/three/experience-particles"
 
 const experienceData = [
   {
@@ -108,8 +110,15 @@ export function Experience() {
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
   return (
-    <section id="experience" className="py-24 bg-white dark:bg-neutral-950">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="experience" className="py-24 bg-white/90 dark:bg-neutral-950/90 backdrop-blur-sm relative overflow-hidden">
+      {/* 3D floating particles behind timeline - desktop only */}
+      <div className="hidden lg:block absolute inset-0 z-0 pointer-events-none">
+        <SceneContainer frameloop="always" camera={{ position: [0, 0, 5], fov: 75 }}>
+          <ExperienceParticles />
+        </SceneContainer>
+      </div>
+
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 40 }}
@@ -126,7 +135,9 @@ export function Experience() {
         </motion.div>
       </div>
 
-      <Timeline data={experienceData} />
+      <div className="relative z-10">
+        <Timeline data={experienceData} />
+      </div>
     </section>
   )
 }
